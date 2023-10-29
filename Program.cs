@@ -55,7 +55,7 @@ namespace npkExtract
                     Directory.CreateDirectory(Path.GetDirectoryName(source.Name) + "\\" + Path.GetFileNameWithoutExtension(source.Name));
                     BinaryWriter bw = new(File.OpenWrite(Path.GetDirectoryName(source.Name) + "\\" + Path.GetFileNameWithoutExtension(source.Name) + "\\" + subfile[i].Name));
                     br.BaseStream.Position = subfile[i].Offset;
-                    bw.Write(br.ReadBytes(subfile[i].Size));
+                    bw.Write(br.ReadBytes((int)subfile[i].Size));
 
                     bw.Close();
                 }
