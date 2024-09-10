@@ -14,11 +14,11 @@ namespace npkExtract
         public static BinaryReader br;
         public static BinaryWriter bw;
 
-        struct Subfile
+        class Subfile
         {
-            public string Name;
-            public uint Offset;
-            public uint Size;
+            public string Name = new string(br.ReadChars(0XF8)).TrimEnd('\0');
+            public uint Offset = br.ReadUInt32();
+            public uint Size = br.ReadUInt32();
         }
 
         static void Main(string[] args)
@@ -43,9 +43,7 @@ namespace npkExtract
             br.BaseStream.Position = metaOffset;
             for (int i = 0; i < subfile.Length; i++)
             {
-                subfile[i].Name = new string(br.ReadChars(0XF8)).TrimEnd('\0');
-                subfile[i].Offset = br.ReadUInt32();
-                subfile[i].Size = br.ReadUInt32();
+                subfile[i] = new();
             }
 
             for (int i = 0; i < subfile.Length; i++)
