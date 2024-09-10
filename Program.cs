@@ -43,18 +43,7 @@ namespace npkExtract
             br.BaseStream.Position = metaOffset;
             for (int i = 0; i < subfile.Length; i++)
             {
-                long nameOffset = br.BaseStream.Position;
-                char[] fileName = Array.Empty<char>();
-                char readChar = (char)1;
-                while (readChar > 0)
-                {
-                    readChar = br.ReadChar();
-                    Array.Resize(ref fileName, fileName.Length + 1);
-                    fileName[^1] = readChar;
-                }
-                Array.Resize(ref fileName, fileName.Length - 1);
-                subfile[i].Name = new(fileName);
-                br.BaseStream.Position = nameOffset + 0XF8;
+                subfile[i].Name = new string(br.ReadChars(0XF8)).TrimEnd('\0');
                 subfile[i].Offset = br.ReadUInt32();
                 subfile[i].Size = br.ReadUInt32();
             }
