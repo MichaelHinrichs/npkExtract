@@ -28,23 +28,18 @@ namespace npkExtract
 
             string magic = new(br.ReadChars(4));
             if (magic != "npk." && magic != ".npk")
-            {
                 throw new ArgumentException("This file is not a NERD engine NPK file.");
-            }
             
             if (magic == ".npk")
-            {
                 br.ReadBytes(4);
-            }
+
             uint metaOffset = br.ReadUInt32();
             uint metaSize = br.ReadUInt32();
             Subfile[] subfile = new Subfile[metaSize / 0X100];
             
             br.BaseStream.Position = metaOffset;
             for (int i = 0; i < subfile.Length; i++)
-            {
                 subfile[i] = new();
-            }
 
             for (int i = 0; i < subfile.Length; i++)
             {
