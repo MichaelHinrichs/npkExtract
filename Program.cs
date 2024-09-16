@@ -1,8 +1,8 @@
-//Written for games in the NERD engine, by minorkeygames. https://minorkeygames.com/
-//You Have to Win the Game https://store.steampowered.com/app/286100/You_Have_to_Win_the_Game/
-//Super Win The Game https://store.steampowered.com/app/310700/Super_Win_the_Game/
-//Gunmetal Arcadia https://store.steampowered.com/app/332270/Gunmetal_Arcadia/
-//Gunmetal Arcadia Zero https://store.steampowered.com/app/555610/Gunmetal_Arcadia_Zero/
+//Written for games in the NERD engine, by minorkeygames. https://minorkeygames.com
+//You Have to Win the Game https://piratehearts.com/blog/games/you-have-to-win-the-game
+//Super Win The Game https://www.superwinthegame.com
+//Gunmetal Arcadia https://gunmetalarcadia.com/rlga.html
+//Gunmetal Arcadia Zero https://gunmetalarcadia.com/gaz.html
 
 using System;
 using System.IO;
