@@ -16,9 +16,9 @@ namespace npkExtract
 
         class Subfile
         {
-            public string Name = new string(br.ReadChars(0XF8)).TrimEnd('\0');
-            public uint Offset = br.ReadUInt32();
-            public uint Size = br.ReadUInt32();
+            public string name = new string(br.ReadChars(0XF8)).TrimEnd('\0');
+            public uint offset = br.ReadUInt32();
+            public uint size = br.ReadUInt32();
         }
 
         static void Main(string[] args)
@@ -33,20 +33,21 @@ namespace npkExtract
             if (magic == ".npk")
                 br.ReadBytes(4);
 
-            uint metaOffset = br.ReadUInt32();
-            uint metaSize = br.ReadUInt32();
-            Subfile[] subfile = new Subfile[metaSize / 0X100];
+            uint tableOffset = br.ReadUInt32();
+            uint tableSize = br.ReadUInt32();
+            //Each table entry is 0x100 long.
+            Subfile[] subfile = new Subfile[tableSize / 0X100];
             
-            br.BaseStream.Position = metaOffset;
+            br.BaseStream.Position = tableOffset;
             for (int i = 0; i < subfile.Length; i++)
                 subfile[i] = new();
 
             for (int i = 0; i < subfile.Length; i++)
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(source.Name) + "\\" + Path.GetFileNameWithoutExtension(source.Name));
-                BinaryWriter bw = new(File.OpenWrite(Path.GetDirectoryName(source.Name) + "\\" + Path.GetFileNameWithoutExtension(source.Name) + "\\" + subfile[i].Name));
-                br.BaseStream.Position = subfile[i].Offset;
-                bw.Write(br.ReadBytes((int)subfile[i].Size));
+                BinaryWriter bw = new(File.OpenWrite(Path.GetDirectoryName(source.Name) + "\\" + Path.GetFileNameWithoutExtension(source.Name) + "\\" + subfile[i].name));
+                br.BaseStream.Position = subfile[i].offset;
+                bw.Write(br.ReadBytes((int)subfile[i].size));
                 bw.Close();
             }
         }
